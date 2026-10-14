@@ -63,7 +63,7 @@ const TABS: { id: string; label: string; roles: Role[] }[] = [
 function Shell() {
   const s = useStore();
   const tabs = TABS.filter((t) => s.can(...t.roles));
-  const [tab, setTab] = useState(tabs[0].id);
+  const [tab, setTab] = useState(tabs[0]?.id ?? "venda");
   return (
     <div className="min-h-screen">
       <header className="bg-primary text-primary-foreground">

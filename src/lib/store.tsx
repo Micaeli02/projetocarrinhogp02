@@ -15,7 +15,7 @@ export type Comanda = {
 export type PedidoStatus = "novo" | "em preparação" | "pronto" | "entregue" | "cancelado";
 export type Pedido = {
   id: string; numero: number; data: string; responsavel: string; itens: Item[]; pagamento: string;
-  status: PedidoStatus; comanda?: number; historico: { status: PedidoStatus; data: string; usuario: string }[];
+  status: PedidoStatus; comanda?: number | undefined; historico: { status: PedidoStatus; data: string; usuario: string }[];
 };
 export type Mov = {
   id: string; productId: string; nome: string; tipo: "entrada" | "saída" | "ajuste" | "devolução";
