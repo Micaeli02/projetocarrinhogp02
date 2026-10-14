@@ -35,15 +35,15 @@ function Login() {
   const [senha, setSenha] = useState("");
   const [err, setErr] = useState("");
   return (
-    <div className="flex min-h-screen items-center justify-center bg-sunset p-4">
-      <form className="w-full max-w-sm rounded-3xl bg-card p-8 shadow-2xl text-center space-y-4"
+    <div className="flex min-h-screen items-center justify-center bg-primary p-4">
+      <form className="w-full max-w-sm rounded-lg border-t-4 border-accent bg-card p-8 shadow-2xl text-center space-y-4"
         onSubmit={(e) => { e.preventDefault(); if (!s.login(email, senha)) setErr("E-mail ou senha inválidos"); }}>
         <img src={logo} alt="Dinho's Canal 6" className="mx-auto h-32 w-32" />
         <h1 className="font-display text-3xl text-primary">Dinho's</h1>
         <Input placeholder="E-mail" value={email} onChange={(e) => setEmail(e.target.value)} />
         <Input placeholder="Senha" type="password" value={senha} onChange={(e) => setSenha(e.target.value)} />
         {err && <p className="text-sm text-destructive">{err}</p>}
-        <Button className="w-full" size="lg">Entrar</Button>
+        <Button className="w-full bg-accent text-accent-foreground hover:bg-accent/90" size="lg">Entrar</Button>
         <p className="text-xs text-muted-foreground">Acesso inicial: admin@dinhos.com / admin123</p>
       </form>
     </div>
@@ -66,7 +66,7 @@ function Shell() {
   const [tab, setTab] = useState(tabs[0]?.id ?? "venda");
   return (
     <div className="min-h-screen">
-      <header className="bg-primary text-primary-foreground">
+      <header className="border-b-4 border-accent bg-primary text-primary-foreground">
         <div className="mx-auto flex max-w-7xl items-center gap-3 px-4 py-3">
           <img src={logo} alt="" className="h-12 w-12 rounded-full bg-card" />
           <div className="flex-1">
@@ -77,10 +77,10 @@ function Shell() {
         </div>
         <nav className="mx-auto flex max-w-7xl gap-1 overflow-x-auto px-4">
           {tabs.map((t) => (
-            <button key={t.id} onClick={() => setTab(t.id)}
-              className={`whitespace-nowrap rounded-t-xl px-4 py-2 text-sm font-semibold ${tab === t.id ? "bg-background text-primary" : "opacity-80 hover:opacity-100"}`}>
+            <Button key={t.id} variant="ghost" onClick={() => setTab(t.id)}
+              className={`h-10 whitespace-nowrap rounded-b-none rounded-t-md px-4 py-2 text-sm font-semibold ${tab === t.id ? "bg-accent text-accent-foreground hover:bg-accent/90" : "text-primary-foreground hover:bg-primary-foreground/10 hover:text-primary-foreground"}`}>
               {t.label}
-            </button>
+            </Button>
           ))}
         </nav>
       </header>
@@ -94,7 +94,7 @@ function Shell() {
 }
 
 const Card = ({ children, className = "" }: { children: React.ReactNode; className?: string }) =>
-  <div className={`rounded-2xl border bg-card p-4 shadow-sm ${className}`}>{children}</div>;
+  <div className={`rounded-lg border bg-card p-4 shadow-sm ${className}`}>{children}</div>;
 
 function Venda() {
   const s = useStore();
@@ -120,7 +120,7 @@ function Venda() {
         <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 xl:grid-cols-4">
           {prods.map((p) => (
             <button key={p.id} disabled={p.estoque === 0} onClick={() => setQtd(p.id, qtdOf(p.id) + 1)}
-              className="rounded-2xl border bg-card p-4 text-left shadow-sm transition hover:-translate-y-0.5 hover:border-accent disabled:opacity-40">
+              className="rounded-lg border bg-card p-4 text-left shadow-sm transition hover:-translate-y-0.5 hover:border-accent hover:bg-accent/10 disabled:opacity-40">
               <div className="text-xs text-muted-foreground">{p.categoria}</div>
               <div className="font-bold">{p.nome}</div>
               <div className="mt-2 flex items-end justify-between">
@@ -157,7 +157,7 @@ function Venda() {
           </select>}
           {msg && <p className="text-sm text-destructive">{msg}</p>}
           <div className="flex justify-between text-xl font-extrabold"><span>Total</span><span>{brl(total(cart))}</span></div>
-          <Button className="w-full bg-sunset text-accent-foreground" size="lg" disabled={!cart.length}
+          <Button className="w-full bg-accent text-accent-foreground hover:bg-accent/90" size="lg" disabled={!cart.length}
             onClick={() => { const e = s.criarPedido(cart, pag, comanda || undefined); if (e) setMsg(e); else { setCart([]); setMsg(""); } }}>
             Enviar pedido
           </Button>
